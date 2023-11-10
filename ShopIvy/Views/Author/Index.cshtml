@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "IndexAsync";
+}
+@model IEnumerable<ShopIvy.Models.Author>
+<h2>List Of Author</h2>
+<a href="/Author/AddAuthor" class="btn btn-primary">Add new author</a>
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Biography</th>
+      <th scope="col">Create</th>
+      <th scope="col">Last Update</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      @foreach(var author in Model){
+        <tr>
+        <td>@author.Firstname</td>
+        <td>@author.Lastname</td>
+        <td>@author.Biography</td>
+        <td>@author.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
+        <td>@author.UpdateAt.ToString("dd-MM-yyy HH:mm")</td>
+        @if(author.Status==1){
+            <td class="text-success">Active</td>
+        }else if(author.Status==2){
+            <td class="text-danger">Disable</td>
+        }
+        <td><a href="">Delete</a><a href="">Update</a></td>
+        </tr>
+        }
+    
+   
+  </tbody>
+</table>

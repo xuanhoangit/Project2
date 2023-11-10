@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<ShopIvy.Models.Publisher>
+<h2>List Of Publisher</h2>
+<a href="/Publisher/AddPublisher" class="btn btn-primary">Add new publisher</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Holine</th>
+      <th scope="col">Create</th>
+      <th scope="col">Last Update</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      @foreach(var publisher in Model){
+        <tr>
+        <td>@publisher.Name</td>
+        <td>@publisher.Hotline</td>
+        <td>@publisher.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
+        <td>@publisher.UpdateAt.ToString("dd-MM-yyy HH:mm")</td>
+        @if(publisher.Status==1){
+            <td class="text-success">Active</td>
+        }else if(publisher.Status==2){
+            <td class="text-danger">Disable</td>
+        }
+        <td><a href="">Delete</a><a href="">Update</a></td>
+        </tr>
+        }
+    
+   
+  </tbody>
+</table>

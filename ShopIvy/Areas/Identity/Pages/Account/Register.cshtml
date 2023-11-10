@@ -1,0 +1,239 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+@* Hiển thị lỗi *@
+
+<div class="row">
+    <div class="col-md-12">
+        <form id="registerForm"  asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div id="rg-displayErr"  >
+                <div  class="d-flex justify-content-between">
+                <div class="text-danger d-flex flex-column ps-2 py-2" id="rg-ContainerErr" style="font-size: 14px;">   
+                    <span asp-validation-for="Input.Ho" ></span>
+                    <span asp-validation-for="Input.Ten"></span>
+                    <span asp-validation-for="Input.PhoneNumber"  ></span>
+                    <span asp-validation-for="Input.Email" ></span>
+                    <span asp-validation-for="Input.NgaySinh"></span>
+                    <span asp-validation-for="Input.Tinh_ThanhPho"></span>
+                    <span asp-validation-for="Input.Quan_Huyen"></span>
+                    <span asp-validation-for="Input.Phuong_Xa"></span>
+                    <span asp-validation-for="Input.DiaChi"></span>
+                    <span asp-validation-for="Input.Password"></span>
+                     <span asp-validation-for="Input.ConfirmPassword"></span>
+                </div>
+                <span  id="rg-CancelErr" class="fs-4 px-1" style="-webkit-text-stroke: 2px rgb(108,117,125);"><i class="bi bi-x"></i></span>
+            </div>
+            </div>
+           <div class="d-md-flex justify-content-between ">
+           @* account in4 *@
+            <div class="col-md-6 pe-md-3">
+                <div  class="  d-flex justify-content-between mb-3">
+                @* cột 1 *@
+                <div class="col me-3">
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.Ho" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Ho">Họ</label>
+                    
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.NgaySinh" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.NgaySinh">Ngày sinh</label>
+                    </div>
+                    <div class="form-floating">
+                        <select class="form-select" id="province" asp-for="Input.Tinh_ThanhPho">
+                        </select>
+                         <label asp-for="Input.Tinh_ThanhPho">Tỉnh/Thành phố</label>
+                   
+                    </div>
+                    
+                </div>
+                @* cột 2 *@
+                <div class="col ms-3">
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.Ten" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Ten">Tên</label>
+                    
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.PhoneNumber">Số điện thoại</label>
+                    
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" asp-for="Input.GioiTinh">
+                        <option value="Nữ">Nữ</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Khác">Khác</option>
+                        </select>
+                         <label asp-for="Input.GioiTinh">Giới tính</label>
+                    <span asp-validation-for="Input.GioiTinh"></span>
+                    </div>
+                    <div class="form-floating">
+                        <select class="form-select" id="district" asp-for="Input.Quan_Huyen">
+                        </select>
+                         <label asp-for="Input.Quan_Huyen">Quận/Huyện</label>
+                    
+                    </div>
+                    <input asp-for="Input.DiaChiDayDu" type="hidden"  id="address">
+                </div>
+                
+            </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="ward" asp-for="Input.Phuong_Xa" value="">
+                        </select>
+                         <label asp-for="Input.Phuong_Xa">Phường/Xã</label>
+                    
+                    </div>
+                   <div class="form-floating mb-3">
+                        <textarea asp-for="Input.DiaChi" class="form-control"></textarea>
+                         <label asp-for="Input.DiaChi">Địa chỉ</label>
+                       
+                    </div> 
+           </div>
+            @* Person in4 *@
+            <div class="col-md-6 ps-md-3"> 
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Mật khẩu</label>
+                   
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword">Nhập lại mật khẩu</label>
+                   
+                </div>
+                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </div>
+            </div>
+            
+           
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2 d-none">
+        <section>
+            <h3>Use another service to register.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+     <script>
+function ControlERR(){
+    const registerSubmit=document.querySelector("#registerSubmit");
+    const rg_displayErr=document.querySelector("#rg-displayErr");
+    const iconX=document.querySelector("#rg-CancelErr");
+    iconX.style.display="none";
+    const rg_ContainerErr=document.querySelector("#rg-ContainerErr")
+    registerSubmit.addEventListener("click",function(){
+        rg_displayErr.style.display="block";
+        rg_displayErr.style.backgroundColor="rgb(248,249,250)";
+        rg_displayErr.setAttribute("class"," rounded mb-3 ");
+        iconX.style.display="block"
+    })
+            iconX.style.transition="all 300ms";
+            iconX.addEventListener("mouseover", function() {
+                this.style.webkitTextStrokeColor = "rgb(51,41,41)";
+            });
+            iconX.addEventListener("mouseout", function() {
+            this.style.webkitTextStrokeColor = "rgb(108,117,125)";
+            }); 
+            iconX.addEventListener("click",function (){
+               rg_displayErr.style.display="none";
+               this.style.display="none";
+            });      
+}
+ControlERR();
+// 1. what is API
+// 2. How do I call API
+// 3. Explain code
+const host = "https://provinces.open-api.vn/api/";
+var callAPI = (api) => {
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data, "province");
+            console.log(response.data)
+        });
+}
+callAPI('https://provinces.open-api.vn/api/?depth=1');
+var callApiDistrict = (api) => {
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data.districts, "district");
+        });
+}
+var callApiWard = (api) => {
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data.wards, "ward");
+        });
+}
+
+var renderData = (array, select) => {
+    let row = ' <option disable value="">chọn</option>';
+    array.forEach(element => {
+        row += `<option value="${element.code}">${element.name}</option>`
+    });
+    document.querySelector("#" + select).innerHTML = row
+}
+
+$("#province").change(() => {
+    callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+    printResult();
+});
+$("#district").change(() => {
+    callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+    printResult();
+});
+$("#ward").change(() => {
+    printResult();
+})
+var printResult = () => {
+    if ($("#district").val() != "" && $("#province").val() != "" &&
+        $("#ward").val() != "") {
+        let result = $("#province option:selected").text() +
+            " - " + $("#district option:selected").text() + " - " +
+            $("#ward option:selected").text();
+        $("#result").text(result)
+        document.querySelector("#address").value=result;
+    }
+
+}
+    </script>
+}

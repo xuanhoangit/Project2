@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "AddAuthor";
+}
+@model ShopIvy.Models.Author;
+<h2>Add new author</h2>
+<a href="/Author/Index" class="btn btn-primary">Back</a>
+<form asp-action="AddAuthor" asp-controller="Author" method="post">
+                <div class="form-floating mb-3">
+                <input asp-for="Firstname" class="form-control" placeholder="" />
+                <label asp-for="Firstname">Firstname</label>
+                <span asp-validation-for="Firstname"></span>
+                </div>
+                <div class="form-floating mb-3">
+                <input asp-for="Lastname" class="form-control" placeholder="" />
+                <label asp-for="Lastname">Lastname</label>
+                <span asp-validation-for="Lastname"></span>
+                </div>
+                <div class="form-floating mb-3">
+                <input asp-for="Biography" class="form-control" placeholder="" />
+                <label asp-for="Biography">Biography</label>
+                <span asp-validation-for="Biography"></span>
+                </div>
+            <button type="submit">Add</button>
+</form>

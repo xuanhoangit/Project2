@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "AddCategory";
+}
+@model ShopIvy.Models.Category;
+<h2>Add new category</h2>
+<a href="/Category/Index" class="btn btn-primary">Back</a>
+<form asp-action="AddCategory" asp-controller="Category" method="post" enctype="multipart/form-data">
+                <div class="form-floating mb-3">
+                <input asp-for="Title" class="form-control" placeholder="" />
+                <label asp-for="Title">Title</label>
+                <span asp-validation-for="Title"></span>
+                </div>
+                <div class="form-floating mb-3">
+                <input asp-for="File" class="form-control" placeholder="" />
+                <label asp-for="File">Image</label>
+                <span asp-validation-for="File"></span>
+                </div>
+            <button type="submit">Add</button>
+</form>

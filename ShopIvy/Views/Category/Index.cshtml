@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<ShopIvy.Models.Category>
+<h2>List Of Author</h2>
+<a href="/Category/AddCategory" class="btn btn-primary">Add new category</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Image</th>
+      <th scope="col">Create</th>
+      <th scope="col">Last Update</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      @foreach(var category in Model){
+        <tr>
+        <td>@category.Title</td>
+        <td style=""><img src="/images/@category.Image" alt="" style="height:200px;width:200px;object-fit:cover;"></td>
+        <td>@category.CreateAt.ToString("dd-MM-yyy HH:mm")</td>
+        <td>@category.UpdateAt.ToString("dd-MM-yyy HH:mm")</td>
+        @if(category.Status==1){
+            <td class="text-success">Active</td>
+        }else if(category.Status==2){
+            <td class="text-danger">Disable</td>
+        }
+        <td><a href="">Delete</a><a href="">Update</a></td>
+        </tr>
+        } 
+  </tbody>
+</table>

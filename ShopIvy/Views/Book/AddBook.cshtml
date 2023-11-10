@@ -1,0 +1,225 @@
+
+@{
+    ViewData["Title"] = "AddBook";
+}
+@model ShopIvy.ModelsBook.AddBook;
+<form asp-action="AddBook" asp-controller="Book" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    
+   <div class="d-flex">
+       <div class="col-6">
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Title" class="form-control" placeholder="" />
+                <label asp-for="Book.Title">Title</label>
+                <span asp-validation-for="Book.Title"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Price" class="form-control" placeholder="" />
+                <label asp-for="Book.Price">Price</label>
+                <span asp-validation-for="Book.Price"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Quantity" class="form-control" placeholder="" />
+                <label asp-for="Book.Quantity">Quantity</label>
+                <span asp-validation-for="Book.Quantity"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Isbn" class="form-control" placeholder="" />
+                <label asp-for="Book.Isbn">Isbn</label>
+                <span asp-validation-for="Book.Isbn"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Sku" class="form-control" placeholder="" />
+                <label asp-for="Book.Sku">Sku</label>
+                <span asp-validation-for="Book.Sku"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Image" class="form-control" placeholder="" />
+                <label asp-for="Book.Image">Book's cover</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Book.Description" class="form-control" placeholder="" />
+                <label asp-for="Book.Description">Description</label>
+                <span asp-validation-for="Book.Description"></span>
+            </div>
+        </div>
+        @* <button type="submit">Submit</button>
+    </form> *@
+        <div class="col-6">
+           <div>
+                <span>Author</span><br>
+                <div class="d-flex col-12">
+                    <span class="col btn btn-primary" onclick="AddNewAuthor()">Add new</span>
+                    <span>Or</span>
+                    <select class="form-select col" id="selectAuthor" aria-required="false" asp-for="Book.AuthorId">
+                        <option value="0">Choose</option>
+                    </select>
+                </div>
+                <div style="display: none;" id="formAddNewAuthor">
+                    <div class="form-floating mb-3">
+                    <input asp-for="Author.Firstname" class="form-control" placeholder="" />
+                    <label asp-for="Author.Firstname">Firstname</label>
+                    <span asp-validation-for="Author.Firstname"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Author.Lastname" class="form-control" placeholder="" />
+                    <label asp-for="Author.Lastname">Lastname</label>
+                    <span asp-validation-for="Author.Lastname"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Author.Biography" class="form-control" placeholder="" />
+                    <label asp-for="Author.Biography">Biography</label>
+                    <span asp-validation-for="Author.Biography"></span>
+                    </div>
+                </div>
+           </div>
+            <div>
+                 <span>Publisher</span><br>
+                <div class="d-flex col-12">
+                    <span class="col btn btn-primary" onclick="AddNewPublisher()">Add new</span>
+                    <span>Or</span>
+                    <select class="form-select col" id="selectPublisher" aria-required="false" asp-for="Book.PublisherId">
+                        <option value="0">Choose</option>
+                    </select>
+                </div>
+                <div style="display: none;" id="formAddNewPublisher">
+                    <div class="form-floating mb-3">
+                    <input asp-for="Publisher.Name" class="form-control" placeholder="" />
+                    <label asp-for="Publisher.Name">Name</label>
+                    <span asp-validation-for="Publisher.Name"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Publisher.Hotline" class="form-control" placeholder="" />
+                    <label asp-for="Publisher.Hotline">Hotline</label>
+                    <span asp-validation-for="Publisher.Hotline"></span>
+                    </div>
+                </div>
+            </div>
+             <div>
+                 <span>Category</span><br>
+                <div class="d-flex col-12">
+                    <span class="col btn btn-primary" onclick="AddNewCategory()">Add new</span>
+                    <span>Or</span>
+                    <select class="form-select col" id="selectCategory" asp-for="Book.CategoryId">
+                        <option value="0">Choose</option>
+                    </select>
+                </div>
+                <div style="display: none;" id="formAddNewCategory">
+                      <div class="form-floating mb-3">
+                        <input asp-for="Category.Title" class="form-control" placeholder="" />
+                        <label asp-for="Category.Title">Title</label>
+                        <span asp-validation-for="Category.Title"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <input asp-for="Category.File" class="form-control" placeholder="" />
+                        <label asp-for="Category.File">Image</label>
+                        <span asp-validation-for="Category.File"></span>
+                        </div>
+                </div>
+            </div>
+        </div>
+   </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section Scripts{
+    <script>
+        function AddNewAuthor(){
+            var formaddnewauthor=document.querySelector("#formAddNewAuthor");
+                if(formaddnewauthor.style.display=="block"){
+                    formaddnewauthor.style.display="none";
+                }else{
+                    formaddnewauthor.style.display="block";
+                }
+        }
+        function OptionAuthor(author){
+            var formselect=document.querySelector("#selectAuthor");
+            var length=author.length;
+            for(let i=0;i<length;i++){
+                const option=document.createElement("option");
+                option.value=author[i].id;
+                option.innerHTML=author[i].firstname+" "+author[i].lastname;
+                formselect.appendChild(option);
+            }
+            console.log(formselect)
+        }
+        function SelectAuthor(){
+            $.ajax({
+            type: "POST",
+            url: "/Author/Display",
+            success: function (author) {
+                OptionAuthor(author);
+            },
+            error: function (error) {
+                alert("errr")
+            }
+            });
+        }
+        SelectAuthor();
+        ///////////////////////////////////////////////
+        function AddNewPublisher(){
+            var formaddnewpublisher=document.querySelector("#formAddNewPublisher");
+                if(formaddnewpublisher.style.display=="block"){
+                    formaddnewpublisher.style.display="none";
+                }else{
+                    formaddnewpublisher.style.display="block";
+                }
+        }
+        function OptionPublisher(publisher){
+            var formselect=document.querySelector("#selectPublisher");
+            var length=publisher.length;
+            for(let i=0;i<length;i++){
+                const option=document.createElement("option");
+                option.value=publisher[i].id;
+                option.innerHTML=publisher[i].name;
+                formselect.appendChild(option);
+            }
+            console.log(formselect)
+        }
+        function SelectPublisher(){
+            $.ajax({
+            type: "POST",
+            url: "/Publisher/Display",
+            success: function (publisher) {
+                OptionPublisher(publisher);
+            },
+            error: function (error) {
+                alert("errr")
+            }
+            });
+        }
+        SelectPublisher();
+        ////////////////////////////////////////////////////
+        function AddNewCategory(){
+            var formaddnewcategory=document.querySelector("#formAddNewCategory");
+                if(formaddnewcategory.style.display=="block"){
+                    formaddnewcategory.style.display="none";
+                }else{
+                    formaddnewcategory.style.display="block";
+                }
+        }
+        function OptionCategory(category){
+            var formselect=document.querySelector("#selectCategory");
+            var length=category.length;
+            for(let i=0;i<length;i++){
+                const option=document.createElement("option");
+                option.value=category[i].id;
+                option.innerHTML=category[i].title;
+                formselect.appendChild(option);
+            }
+            console.log(formselect)
+        }
+        function SelectCategory(){
+            $.ajax({
+            type: "POST",
+            url: "/Category/Display",
+            success: function (category) {
+                OptionCategory(category);
+            },
+            error: function (error) {
+                alert("errr")
+            }
+            });
+        }
+        SelectCategory();
+    </script>
+}
